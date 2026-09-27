@@ -128,3 +128,16 @@ def validar_evaluacion(valor):
         return False
     v = float(valor)
     return 0.0 <= v <= 5.0
+
+# ============================================================
+#  VALIDADORES PARA ENTRY (en tiempo real)
+# ============================================================
+
+def solo_enteros(char):
+    """Retorna True si el carácter es un dígito."""
+    return char.isdigit()
+
+
+def solo_decimales(char):
+    """Retorna True si el carácter es un dígito o un punto."""
+    return char.isdigit() or char == "."
