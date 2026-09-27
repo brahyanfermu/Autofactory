@@ -3,32 +3,60 @@
 > **Sistema de Gestión para Industria Automotriz**
 > Aplicación de escritorio desarrollada en Python con Tkinter para la empresa *Motores Eficientes S.A.*
 
+
+---
+
 ## 📖 Descripción
 
-**AUTOfactory** es una aplicación de escritorio modular desarrollada en **Python** con **Tkinter**
-que simula la gestión de los principales procesos productivos de una fábrica de vehículos. 
-El proyecto aplica **Programación Orientada a Objetos (POO)** y demuestra el manejo completo de interfaces gráficas de usuario.
+**AUTOfactory** es una aplicación de escritorio modular desarrollada en **Python** con **Tkinter** que gestiona los principales procesos productivos de una fábrica de vehículos. El proyecto aplica **Programación Orientada a Objetos (POO)**, conexión a **MySQL** mediante **Stored Procedures**, y demuestra el manejo completo de interfaces gráficas de usuario con funcionalidades avanzadas.
 
 La aplicación está organizada en **4 módulos funcionales** accesibles mediante un sistema de pestañas:
 
-- 🚗 **Vehículos** — Registro de modelos con campo de clave oculta
-- 🏗️ **Producción** — Registro de órdenes de producción
-- 📦 **Inventario** — Verificación de stock con alertas visuales
-- 👷 **Empleados** — Gestión del personal de producción
+- 🚗 **Vehículos** — Registro de modelos con gestión de imágenes
+- 🏗️ **Producción** — Órdenes con calendario flotante (tkcalendar)
+- 📦 **Inventario** — Componentes con verificación de stock mínimo
+- 👷 **Empleados** — Gestión de personal con imágenes y evaluación
 
+---
 
-## 🎯 Objetivos del Proyecto
+## ✨ Características Principales
+
+### 🔧 Funcionalidades Generales
+- ✅ **CRUD completo** en los 4 módulos (Crear, Leer, Actualizar, Eliminar)
+- ✅ **Conexión a MySQL** mediante Stored Procedures
+- ✅ **Exportación a Excel** (openpyxl) y **PDF** (reportlab)
+- ✅ **Tema claro/oscuro** intercambiable en tiempo real
+- ✅ **Favicon personalizado** en la ventana
+- ✅ **Interfaz moderna** con ttk.Notebook y estilos personalizados
+
+### 📅 Validaciones Avanzadas
+- ✅ **Calendario flotante** con tkcalendar para campos de fecha
+- ✅ **Validación numérica estricta** (rechaza letras en tiempo real)
+- ✅ **Validación de formatos** (JPG, PNG, GIF, tamaño máximo 5MB)
+- ✅ **Confirmaciones** antes de operaciones críticas (eliminar/actualizar)
+
+### 🖼️ Manejo de Imágenes
+- ✅ **Carga de imágenes** con Pillow
+- ✅ **Redimensionamiento automático** (150×150 px)
+- ✅ **Vista previa** en Vehículos y Empleados
+- ✅ **Copia automática** a carpeta del proyecto
+
+---
+
+## 🎯 Objetivos
 
 ### Objetivo General
-Desarrollar una aplicación de escritorio funcional en Python que demuestre el manejo de **interfaces gráficas con Tkinter**, aplicando principios de **Programación Orientada a Objetos** y estructuración modular del código.
+Desarrollar una aplicación de escritorio funcional en Python que demuestre el manejo profesional de **interfaces gráficas con Tkinter**, **conexión a base de datos MySQL**, y **exportación de reportes**.
 
 ### Objetivos Específicos
-- ✅ Aplicar POO creando cada módulo como una clase que hereda de `tk.Frame`
-- ✅ Implementar un sistema de navegación por pestañas con `ttk.Notebook`
-- ✅ Manejar eventos de usuario mediante el parámetro `command=` de los botones
-- ✅ Demostrar los **4 métodos clave de `Entry`**: `get()`, `delete()`, `insert()` y `config(show="*")`
-- ✅ Validar datos de entrada y proporcionar feedback visual con `messagebox`
-- ✅ Mostrar listados de registros con el widget `ttk.Treeview`
+- ✅ Aplicar POO mediante clases que heredan de `tk.Frame`
+- ✅ Implementar CRUD con **Stored Procedures** en MySQL
+- ✅ Usar **ttk.Notebook** para sistema de pestañas
+- ✅ Implementar **tkcalendar** para selección de fechas
+- ✅ Exportar datos a **Excel** (openpyxl) y **PDF** (reportlab)
+- ✅ Gestionar **imágenes con Pillow** (redimensionar, validar)
+- ✅ Implementar **tema claro/oscuro** intercambiable
+- ✅ **Favicon personalizado** en la ventana
 
 ---
 
@@ -36,228 +64,179 @@ Desarrollar una aplicación de escritorio funcional en Python que demuestre el m
 
 | Tecnología | Versión | Uso |
 |---|---|---|
-| **Python** | 3.10+ | Lenguaje principal |
-| **Tkinter** | Estándar | Interfaz gráfica de usuario |
-| **ttk** | Estándar | Widgets mejorados (Notebook, Combobox, Treeview) |
-| **messagebox** | Estándar | Diálogos de feedback al usuario |
+| **Python** | 3.12 | Lenguaje principal |
+| **Tkinter** | Estándar | Interfaz gráfica |
+| **MySQL** | 8.0+ | Base de datos |
+| **mysql-connector-python** | 9.1.0 | Conexión a MySQL |
+| **openpyxl** | 3.1.5 | Exportar a Excel |
+| **reportlab** | 5.0.1 | Exportar a PDF |
+| **pillow** | 12.3.0 | Manejo de imágenes |
+| **tkcalendar** | 1.6.1 | Calendario flotante |
 | **PyCharm** | — | IDE de desarrollo |
-| **Git / GitHub** | — | Control de versiones |
-
-> ⚠️ **Importante**: El proyecto **no requiere librerías externas**. Todo funciona con la librería estándar de Python.
+| **DBeaver** | — | Cliente MySQL |
+| **Git + GitHub** | — | Control de versiones |
 
 ---
 
 ## 📁 Estructura del Proyecto
 
 ```
-Autofactory/
+6Autofactory/
 │
-├── main.py              # Aplicación completa (módulos + ventana principal)
-├── README.md            # Este archivo
-
+├── main.py                       # Ventana principal + temas
+├── config.py                     # Configuración global
+├── conexion_bd.py                # Conexión MySQL (Singleton)
+├── crear_icono.py                # Script para generar favicon
+├── README.md
+├── requirements.txt
+├── .gitignore
+│
+├── modulos/                      # Los 4 módulos (pestañas)
+│   ├── __init__.py
+│   ├── mod_vehiculos.py
+│   ├── mod_produccion.py
+│   ├── mod_inventario.py
+│   └── mod_empleados.py
+│
+├── utils/                        # Utilidades
+│   ├── __init__.py
+│   ├── validaciones.py           # Regex, tkcalendar
+│   ├── exportar_excel.py         # openpyxl
+│   ├── exportar_pdf.py           # reportlab
+│   ├── imagenes.py               # Pillow
+│   └── temas.py                  # Claro/Oscuro
+│
+├── sql/                          # Scripts BD
+│   └── stored_procedures.sql     # 20 SP para CRUD
+│
+├── assets/                       # Recursos
+│   ├── icono.ico
+│   ├── icono.png
+│   └── icono_grande.png
+│
+└── capturas/                     # Capturas e imágenes subidas
+    └── imagenes/
 ```
 
 ---
 
-## 🚀 Instalación
+## 🚀 Instalación y Ejecución
 
 ### Requisitos previos
+- **Python 3.10+**
+- **MySQL 8.0+** corriendo en `localhost:3306`
+- **DBeaver** (opcional, para administrar la BD)
 
-- **Python 3.10 o superior** → [Descargar Python](https://www.python.org/downloads/)
-- **Tkinter** (viene incluido en Python por defecto)
-- **Git** (opcional, solo si vas a clonar)
-
-### 1. Verificar que Python está instalado
-
+### 1. Clonar el repositorio
 ```bash
-python --version
+git clone https://github.com/brahyanfermu/6Autofactory.git
+cd 6Autofactory
 ```
 
-Deberías ver algo como: `Python 3.12.x`
-
-### 2. Verificar que Tkinter está disponible
-
-**En Windows / macOS:**
+### 2. Crear y activar entorno virtual
 ```bash
-python -c "import tkinter; print('Tkinter OK')"
+python -m venv .venv
+
+# Linux / macOS
+source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
 ```
 
-### 3. Clonar el repositorio (o descargarlo)
-
-**Opción A — Con Git:**
+### 3. Instalar dependencias
 ```bash
-git clone https://github.com/[tu-usuario]/autofactory.git
-cd autofactory
+pip install -r requirements.txt
 ```
-**Opción B — Descarga manual:**
-- Ve al repositorio en GitHub
-- Clic en el botón verde **"Code"** → **"Download ZIP"**
-- Descomprime el archivo
-- Abre una terminal en la carpeta descomprimida
 
-## ▶️ Uso
+### 4. Configurar la base de datos
 
-### Ejecutar la aplicación
+1. Abre **DBeaver** o **MySQL Workbench**
+2. Ejecuta el script `sql/stored_procedures.sql` en tu BD `Autofactory`
+3. Edita `config.py` con tus credenciales:
 
-Desde la terminal, en la carpeta del proyecto:
+```python
+DB_HOST     = "localhost"
+DB_PORT     = 3306
+DB_USER     = "root"
+DB_PASSWORD = "tu_contraseña"
+DB_NAME     = "Autofactory"
+```
 
+### 5. Ejecutar la aplicación
 ```bash
 python main.py
 ```
 
-**Desde PyCharm:**
-1. Abre el proyecto
-2. Clic derecho sobre `main.py`
-3. Selecciona **"Run 'main'"** (o presiona `Shift + F10`)
-
-### Se abrirá la ventana principal con:
-
-- **Encabezado** — Nombre del sistema, empresa y usuario
-- **4 pestañas** — Vehículos, Producción, Inventario, Empleados
-- **Barra de estado** — Mensaje "Sistema listo"
-
 ---
 
-## 🧩 Guía de Uso por Módulo
+## 🖥️ Uso de la Aplicación
 
 ### 🚗 Módulo de Vehículos
-
-**Propósito:** Registrar modelos de vehículos con validación.
-
-**Cómo usar:**
-1. Ingresa el **código del modelo** (ej: `MOD-001`)
-2. Ingresa el **nombre** (ej: `Sedan Compacto`)
-3. Selecciona una **categoría** en el Combobox (Sedan / SUV / Pickup)
-4. Opcionalmente ingresa una **clave de acceso** (se muestra con asteriscos)
-5. Clic en **"Guardar"** → el registro aparece en la tabla inferior
-6. Clic en **"Limpiar"** → todos los campos se vacían
-
-**Métodos de Entry demostrados:**
-- `entry.get()` → Leer contenido (botón Guardar)
-- `entry.delete(0, tk.END)` → Borrar todo (botón Limpiar)
-
----
+- Registra modelos de vehículos con código, nombre, categoría, especificaciones
+- **Carga imágenes** con JPG/PNG/GIF (máx 5MB)
+- Exporta a Excel y PDF
 
 ### 🏗️ Módulo de Producción
-
-**Propósito:** Registrar órdenes de producción.
-
-**Cómo usar:**
-1. Ingresa el **N° de orden** (ej: `OP-001`)
-2. Ingresa la **cantidad** (ej: `50`)
-3. Clic en **"Registrar Orden"**
-4. Si todo está correcto, aparece un mensaje de éxito y los campos se limpian
-
----
+- Registra órdenes de producción con **calendario flotante** para las fechas
+- Selecciona fechas con el calendario (no escribir)
+- Botones: Guardar, Actualizar, Eliminar, Limpiar, Excel, PDF
 
 ### 📦 Módulo de Inventario
-
-**Propósito:** Verificar si un componente tiene stock suficiente.
-
-**Cómo usar:**
-1. Ingresa el **código del componente** (ej: `COMP-001`)
-2. Ingresa la **cantidad disponible** (ej: `5`)
-3. Ingresa el **stock mínimo requerido** (ej: `10`)
-4. Clic en **"Verificar Stock"**
-5. Resultado:
-   - 🔴 **Alerta roja** si `cantidad ≤ stock mínimo`
-   - 🟢 **Mensaje verde** si hay stock suficiente
-   - ❌ **Error** si ingresas texto en lugar de números
-
----
+- Registra componentes con costo, stock mínimo, proveedor
+- **Botón "Verificar Stock"**: muestra alerta si stock ≤ mínimo
+- Validación numérica estricta
 
 ### 👷 Módulo de Empleados
+- Registra empleados con foto (imagen)
+- **Calendario flotante** para fecha de contratación
+- Combobox para turno (Mañana/Tarde/Noche)
 
-**Propósito:** Registrar empleados de producción.
-
-**Cómo usar:**
-1. Ingresa el **N° de empleado** (ej: `EMP-001`)
-2. Ingresa los **nombres** y **apellidos**
-3. Selecciona el **turno** en el Combobox (Mañana / Tarde / Noche)
-4. Clic en **"Registrar Empleado"**
-5. Se muestra un mensaje de confirmación
+### 🌗 Cambio de Tema
+- Botón **"🌙 Oscuro"** en el header
+- Alterna entre tema claro y oscuro en tiempo real
 
 ---
 
-## 🎓 Conceptos Técnicos Demostrados
+## 🎓 Conceptos Técnicos Aplicados
 
-### Widgets utilizados
+### Principios de POO
+- **Herencia** → Cada módulo hereda de `tk.Frame`
+- **Encapsulamiento** → Widgets como atributos `self.widget`
+- **Responsabilidad única** → Cada clase maneja un módulo
 
-| Widget | Ubicación | Uso |
-|---|---|---|
-| `tk.Tk` | `AplicacionAutofactory` | Ventana principal |
-| `tk.Frame` | Cada módulo | Contenedor base |
-| `tk.Label` | Encabezado, formularios | Texto no editable |
-| `tk.Entry` | Formularios | Entrada de texto |
-| `tk.Button` | Todos los módulos | Disparar acciones |
-| `ttk.Combobox` | Vehículos, Empleados | Selección cerrada |
-| `ttk.Notebook` | Ventana principal | Sistema de pestañas |
-| `ttk.Treeview` | Vehículos | Tabla de registros |
-| `messagebox` | Todas las acciones | Feedback al usuario |
+### Patrón Singleton
+- **Conexión única** a MySQL durante toda la ejecución (`conexion_bd.py`)
 
-### Métodos de `Entry` demostrados
+### Stored Procedures
+- **20 SP** creados en MySQL para las operaciones CRUD
+- Uso desde Python con `cursor.callproc()`
 
-```python
-# 1. LEER contenido de un campo
-codigo = self.entry_codigo.get()
+### Validaciones
+- **Regex** para números, DNI, RUC
+- **tkcalendar** para fechas
+- **messagebox** para feedback al usuario
 
-# 2. BORRAR todo el contenido
-self.entry_codigo.delete(0, tk.END)
-
-# 3. INSERTAR texto en la posición 0
-self.entry_codigo.insert(0, "MOD-001")
-
-# 4. OCULTAR el texto (contraseña)
-self.entry_clave.config(show="*")
-
-# 5. MOSTRAR el texto de nuevo
-self.entry_clave.config(show="")
-```
-
-### Principios de POO aplicados
-
-- **Herencia** → Todas las clases de módulos heredan de `tk.Frame`
-- **Encapsulamiento** → Cada módulo guarda sus widgets como `self.widget`
-- **Métodos propios** → `guardar()`, `limpiar()`, `verificar()`, `registrar()`
-- **Constructor** → Cada clase inicializa su UI en `__init__`
-- **Responsabilidad única** → Cada clase maneja un solo módulo
-
-### Estilos personalizados
-
-```python
-estilo = ttk.Style()
-estilo.theme_use("clam")
-estilo.configure("TNotebook.Tab",
-                 font=("Segoe UI", 10, "bold"),
-                 padding=[15, 8],
-                 background="#34495E",
-                 foreground="white")
-```
 ---
 
-## 🎯 Características
+## 📊 Base de Datos
 
-- ✅ Interfaz gráfica moderna con sistema de pestañas
-- ✅ Encabezado con identidad del sistema y del usuario
-- ✅ Formularios con validación de campos
-- ✅ Mensajes de feedback al usuario (éxito, advertencia, error)
-- ✅ Tabla de registros con `ttk.Treeview`
-- ✅ Estilos personalizados con colores corporativos
-- ✅ Barra de estado informativa
-- ✅ Código organizado en clases (POO)
+- **Motor:** MySQL 8.0
+- **Tablas:** 19 tablas relacionales
+- **Vistas:** 5 vistas para reportes
+- **Stored Procedures:** 20 SP (uno por operación CRUD)
+
 
 ---
 
 ## 👤 Autor
 
-BRAHYAN FERNANDEZ MUNERA
-
+**Brahyan Fernández Múnera**
 Estudiante de Desarrollo de Software
-
 CEFIT — Envigado, Antioquia, Colombia
 
+- 🐙 GitHub: [@brahyanfermu](https://github.com/brahyanfermu)
 - 📧 Correo: brahyan1049@gmail.com
-- 🐙 GitHub: https://github.com/brahyanfermu/Autofactory.git
 
 ---
 
@@ -265,5 +244,14 @@ CEFIT — Envigado, Antioquia, Colombia
 
 **James Mosquera Rentería**
 
+CEFIT — Envigado, Antioquia
+
+---
+
+<div align="center">
+
+**⭐ Si este proyecto te fue útil, dale una estrella en GitHub ⭐**
 
 
+
+</div>
