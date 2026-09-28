@@ -14,9 +14,17 @@ from conexion_bd import ConexionBD
 from utils.temas import (obtener_tema, alternar_tema,
                          obtener_nombre_tema, aplicar_tema_ventana)
 
-# Importación de los módulos (pestañas)
-from modulos.mod_vehiculos  import FrameVehiculos
-from modulos.mod_produccion import FrameProduccion
+# ============================================================
+#  MÓDULO VEHÍCULOS (MVC)
+# ============================================================
+from vistas.vista_vehiculos import VistaVehiculos
+from vistas.vista_produccion import VistaProduccion
+
+# ============================================================
+#  MÓDULOS ANTIGUOS (pendientes de migrar a MVC)
+# ============================================================
+
+
 from modulos.mod_inventario import FrameInventario
 from modulos.mod_empleados  import FrameEmpleados
 
@@ -45,14 +53,13 @@ class AplicacionAutofactory(tk.Tk):
                 self.iconbitmap("assets/icono.ico")
                 print("[INFO] Favicon .ico cargado (Windows)")
             else:
-                # Linux (Zorin OS) y macOS: usan PNG
                 ruta_icono = "assets/icono_grande.png"
                 if not os.path.exists(ruta_icono):
                     ruta_icono = "assets/icono.png"
 
                 icono = tk.PhotoImage(file=ruta_icono)
                 self.iconphoto(True, icono)
-                self.icono_ref = icono   # ← Evita que Python lo borre
+                self.icono_ref = icono
                 print(f"[INFO] Favicon cargado desde: {ruta_icono}")
         except Exception as e:
             print(f"[INFO] No se pudo cargar el favicon: {e}")
@@ -89,7 +96,6 @@ class AplicacionAutofactory(tk.Tk):
                                     bg=tema["fondo_header"], fg="#B0BEC5")
         self.lbl_empresa.pack(side="left", pady=22)
 
-        # Estado de conexión a BD (a la derecha)
         color_bd = "#2E7D32" if estado_bd == "Conectada" else "#C62828"
         self.lbl_bd = tk.Label(self.header, text=f"BD: {estado_bd}",
                                font=("Segoe UI", 10, "bold"),
@@ -131,9 +137,19 @@ class AplicacionAutofactory(tk.Tk):
         self.notebook = ttk.Notebook(self)
         self.notebook.pack(fill="both", expand=True, padx=15, pady=15)
 
-        # Carga de los 4 módulos
-        self.notebook.add(FrameVehiculos(self.notebook),  text="🚗 Vehículos")
-        self.notebook.add(FrameProduccion(self.notebook), text="🏗️ Producción")
+        # ==================== CARGA DE LOS 4 MÓDULOS ====================
+        # Módulo 1: Vehículos (MVC) ✅
+        self.vista_vehiculos = VistaVehiculos(self.notebook)
+        self.notebook.add(self.vista_vehiculos, text="🚗 Vehículos")
+        self.vista_vehiculos.controlador.cargar_datos()
+
+        # Módulo 2: Producción (MVC) ✅
+        self.vista_produccion = VistaProduccion(self.notebook)
+        self.notebook.add(self.vista_produccion, text="🏗️ Producción")
+        self.vista_produccion.controlador.cargar_datos()
+
+        # Módulos 2, 3, 4: (pendientes de migrar a MVC)
+
         self.notebook.add(FrameInventario(self.notebook), text="📦 Inventario")
         self.notebook.add(FrameEmpleados(self.notebook),  text="👷 Empleados")
 
