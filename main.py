@@ -19,14 +19,8 @@ from utils.temas import (obtener_tema, alternar_tema,
 # ============================================================
 from vistas.vista_vehiculos import VistaVehiculos
 from vistas.vista_produccion import VistaProduccion
-
-# ============================================================
-#  MÓDULOS ANTIGUOS (pendientes de migrar a MVC)
-# ============================================================
-
-
-from modulos.mod_inventario import FrameInventario
-from modulos.mod_empleados  import FrameEmpleados
+from vistas.vista_inventario import VistaInventario
+from vistas.vista_empleados import VistaEmpleados
 
 
 class AplicacionAutofactory(tk.Tk):
@@ -148,10 +142,16 @@ class AplicacionAutofactory(tk.Tk):
         self.notebook.add(self.vista_produccion, text="🏗️ Producción")
         self.vista_produccion.controlador.cargar_datos()
 
-        # Módulos 2, 3, 4: (pendientes de migrar a MVC)
+        # Módulo 3: Inventario (MVC) ✅
+        self.vista_inventario = VistaInventario(self.notebook)
+        self.notebook.add(self.vista_inventario, text="📦 Inventario")
+        self.vista_inventario.controlador.cargar_datos()
 
-        self.notebook.add(FrameInventario(self.notebook), text="📦 Inventario")
-        self.notebook.add(FrameEmpleados(self.notebook),  text="👷 Empleados")
+        # Módulo 4: Empleados (MVC) ✅
+        self.vista_empleados = VistaEmpleados(self.notebook)
+        self.notebook.add(self.vista_empleados, text="👷 Empleados")
+        self.vista_empleados.controlador.cargar_datos()
+
 
         # ==================== BARRA DE ESTADO ====================
         self.status = tk.Label(
